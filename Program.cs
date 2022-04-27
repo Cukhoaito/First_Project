@@ -81,7 +81,7 @@ namespace HelloWorld
             nguoi.GetHuman();
             nguoi.CANNANG = 70;
             nguoi.GetHuman();
-            Number.GetNumber();
+            Console.WriteLine(Number.GetNumber());
 
         }
 
