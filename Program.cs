@@ -77,7 +77,7 @@ namespace HelloWorld
         {
 
 
-            Human nguoi = new Human("bac", 165, 65);
+            Human nguoi = new Human("bacbodoi", 165, 65);
             nguoi.GetHuman();
             nguoi.CANNANG = 70;
             nguoi.GetHuman();
