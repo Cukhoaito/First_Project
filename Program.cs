@@ -1,89 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
-class Human
-{
-    private string? HoVaTen;
-    private float ChieuCao, CanNang;
+using System.Collections.Generic;
 
-    public Human(string HT, float CC, float CN)
-    {
-        HoVaTen = HT;
-        ChieuCao = CC;
-        CanNang = CN;
-        count++;
-    }
-    public float CANNANG
-    {
-        get { return CanNang; }
-        set { CanNang = value; }
-    }
-    public void GetHuman()
-    {
-        Console.WriteLine("Ten: {0} Chieu Cao: {1} Can Nang: {2}", HoVaTen, ChieuCao, CanNang);
-    }
-
-    public static int count = 0;
-
-}
-
-static class Number
-{
-    private static int number;
-    public static int GetNumber()
-    {
-        return number;
-    }
-    static Number()
-    {
-        DateTime now = DateTime.Now;
-        switch (now.DayOfWeek)
-        {
-
-            case DayOfWeek.Monday:
-                number = 2;
-                break;
-            case DayOfWeek.Tuesday:
-                number = 3;
-                break;
-            case DayOfWeek.Wednesday:
-                number = 4;
-                break;
-            case DayOfWeek.Thursday:
-                number = 5;
-                break;
-            case DayOfWeek.Friday:
-                number = 6;
-                break;
-            case DayOfWeek.Saturday:
-                number = 7;
-                break;
-            case DayOfWeek.Sunday:
-                number = 8;
-                break;
-
-        }
-    }
-
-
-}
 namespace HelloWorld
 {
+    interface function
+    {
+        public void info();
+        public void assess();
+    }
+    abstract class Human : function
+    {
+        protected string name;
+        protected int old;
+        protected float height, weight;
+        static int count = 0;
+        public Human(string n, int o, int h, int w)
+        {
+            name = n;
+            old = o;
+            height = h;
+            weight = w;
+            count++;
+        }
+        public abstract void info();
+        public void assess()
+        {
+            if (old < 25 || old > 18)
+                Console.WriteLine("Luot");
+            else
+                Console.WriteLine("Khong ngon lam");
+        }
+
+        public static int GetCount()
+        {
+            return count;
+        }
+
+    }
+    class Nomal : Human
+    {
+        public Nomal(string n, int o, int h, int w) : base(n, o, h, w) { }
+        public override void info()
+        {
+            Console.WriteLine("Nomal-> Name: {0} Old: {1} Height: {2} Weight: {3}", name, old, height, weight);
+        }
+
+    }
+    class Model : Human
+    {
+        private string[] achievements;
+        public Model(string n, int o, int h, int w, string[] a) : base(n, o, h, w) { achievements = a; }
+        public override void info()
+        {
+            Console.WriteLine("Model-> Name: {0} Old: {1} Height: {2} Weight: {3}", name, old, height, weight);
+            foreach (var item in achievements)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
+        }
+    }
 
     class Program
     {
         static void Main(string[] args)
         {
-
-
-            Human nguoi = new Human("bacbodoi", 165, 65);
-            nguoi.GetHuman();
-            nguoi.CANNANG = 70;
-            nguoi.GetHuman();
-            Console.WriteLine(Number.GetNumber());
-
+            Human[] nguoi = new Human[2];
+            string[] achivements = { "Xinh nhat lop", "Gioi thu hai lop" };
+            nguoi[0] = new Model("Trang", 19, 165, 52, achivements);
+            nguoi[1] = new Nomal("Bac", 19, 165, 60);
+            foreach (var item in nguoi)
+            {
+                item.info();
+                item.assess();
+            }
+            Console.WriteLine(Human.GetCount());
         }
-
     }
+
 }
